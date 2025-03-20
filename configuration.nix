@@ -4,6 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ../../expressions/vm.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
@@ -57,7 +58,7 @@
     ];
   };
 
-  programs.thunar.enable = true; 
+  programs.thunar.enable = true;
   programs.xfconf.enable = true;
   programs.firefox.enable = true;
   programs.hyprland = {
@@ -79,19 +80,23 @@
     sops
     age
     kitty
+    hyprlock
+    hypridle
     waybar
     dunst
     libnotify
+    pywal
     swww
     rofi-wayland
     lz4
     font-awesome
     helix
+    brightnessctl
     discord-ptb
     swayidle
     git
   ];
-  
+
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
