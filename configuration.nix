@@ -8,6 +8,9 @@
       inputs.sops-nix.nixosModules.sops
     ];
 
+  # users.users.root.openssh.authorizedKeys.keys = [
+  # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJzhdDwE4BHqMxjxgRKcntUt/SJMPJvh0St8Tnls2xfe Motherland"
+  # ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
