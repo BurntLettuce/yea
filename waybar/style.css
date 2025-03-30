@@ -19,11 +19,13 @@ window#waybar {
     border-radius: 0.5rem;
     padding: 2px 2px 2px 10px;
     color: #ffffff;
+    border-left: 2px solid rgb(150, 222, 209);
+    border-right: 2px solid rgb(5, 166, 252);
 }
 
 label.module {
     margin-left: -1px;
- }
+}
 
 #workspaces {
 background-color: rgba(0,0,0,0.5);
