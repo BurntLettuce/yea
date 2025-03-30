@@ -13,5 +13,6 @@ fi
 nm-applet --indicator &
 
 waybar &
+hypridle &
 
 dunst
