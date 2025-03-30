@@ -80,6 +80,7 @@
     sops
     age
     kitty
+    wireguard-tools
     feather
     vscode
     rofi-screenshot
