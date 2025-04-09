@@ -76,28 +76,28 @@
 
   environment.systemPackages = with pkgs; [
     inputs.swww.packages.${pkgs.system}.swww
-    networkmanagerapplet
-    sops
     age
-    kitty
-    wireguard-tools
-    feather
-    vscode
-    rofi-screenshot
-    hyprlock
-    hypridle
-    waybar
-    dunst
-    libnotify
-    pywal
-    swww
-    rofi-wayland
-    lz4
-    font-awesome
-    helix
     brightnessctl
-    discord-ptb
+    discord
+    dunst
+    font-awesome
     git
+    helix
+    kitty
+    hypridle
+    hyprlock
+    libnotify
+    lz4
+    networkmanagerapplet
+    pywal
+    rofi-screenshot
+    rofi-wayland  
+    sops
+    swww
+    lz4
+    vscode
+    waybar
+    wireguard-tools
   ];
 
   fonts.packages = with pkgs; [
