@@ -5,7 +5,7 @@ inputs = {
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
-    hyprland ={
+    hyprland = {
         url = "github:hyprwm/Hyprland";
     };
     swww = {
@@ -30,7 +30,12 @@ inputs = {
                 ./hosts/default/configuration.nix
             ];
         };
+        scuffed = nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; };
+            modules = [
+                ./hosts/scuffed/configuration.nix
+            ];
+        };
       };
-
     };
 }
