@@ -80,17 +80,24 @@
     sops
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  services.openssh.enable = true;
+services.openssh = {
+    enable = true;
+    # require public key authentication for better security
+    settings.PasswordAuthentication = false;
+    settings.KbdInteractiveAuthentication = false;
+    #settings.PermitRootLogin = "yes";
+  };
 
   users.users.ghostyytoastyy.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFouIyzSfXTYwET9IhNvxkRDejrKEA+Rw3yke0KF0crP ghosty>
   ];
-  services.openssh.settings.PasswordAuthentication = false;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  
   system.stateVersion = "24.11";
 
 }
