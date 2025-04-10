@@ -7,7 +7,7 @@
       ../../expressions/vm.nix
       inputs.sops-nix.nixosModules.sops
     ];
-
+  #ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFouIyzSfXTYwET9IhNvxkRDejrKEA+Rw3yke0KF0crP ghostyyistoasty@nixos
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
