@@ -12,7 +12,7 @@
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
 
-  sops.age.keyFile = "~/.config/sops/age/keys.txt";
+  sops.age.keyFile = "/home/ghostyytoastyy/.config/sops/age/keys.txt";
 
   sops.secrets.example-key = { };
   sops.secrets."myservice/my_subdir/my_secret" = {
@@ -80,7 +80,7 @@
     sops
   ];
 
-services.openssh = {
+  services.openssh = {
     enable = true;
     # require public key authentication for better security
     settings.PasswordAuthentication = false;
@@ -88,16 +88,16 @@ services.openssh = {
     #settings.PermitRootLogin = "yes";
   };
 
-  users.users.ghostyytoastyy.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFouIyzSfXTYwET9IhNvxkRDejrKEA+Rw3yke0KF0crP ghosty>
-  ];
+  nix.settings.trusted-users = [ "ghostyyistoasty" "@wheel" ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   system.stateVersion = "24.11";
 
-}
+}  users.users.ghostyytoastyy.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFouIyzSfXTYwET9IhNvxkRDejrKEA+Rw3yke0KF0crP ghostyyistoasty@nixos"
+  ];
+
