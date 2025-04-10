@@ -88,6 +88,10 @@
     #settings.PermitRootLogin = "yes";
   };
 
+  users.users.ghostyytoastyy.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFouIyzSfXTYwET9IhNvxkRDejrKEA+Rw3yke0KF0crP ghostyyistoasty@nixos"
+  ];
+
   nix.settings.trusted-users = [ "ghostyyistoasty" "@wheel" ];
 
   # Open ports in the firewall.
@@ -97,7 +101,4 @@
   
   system.stateVersion = "24.11";
 
-}  users.users.ghostyytoastyy.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFouIyzSfXTYwET9IhNvxkRDejrKEA+Rw3yke0KF0crP ghostyyistoasty@nixos"
-  ];
-
+}
