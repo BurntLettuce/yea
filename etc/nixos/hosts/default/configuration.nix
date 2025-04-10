@@ -91,13 +91,15 @@
     networkmanagerapplet
     pywal
     rofi-screenshot
-    rofi-wayland  
+    rofi-wayland
     sops
     swww
+    tauon
     lz4
     vscode
     waybar
     wireguard-tools
+    zathura
   ];
 
   fonts.packages = with pkgs; [
