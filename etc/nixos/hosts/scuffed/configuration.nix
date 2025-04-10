@@ -76,6 +76,9 @@
 
   environment.systemPackages = with pkgs; [
     age
+    jellyfin
+    jellyfin-web
+    jellyfin-ffmpeg
     kitty
     sops
   ];
