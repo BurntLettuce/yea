@@ -1,13 +1,12 @@
-{ config, pkgs, inputs, ... }:
+{ config,lib, pkgs, inputs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../../expressions/vm.nix
-      inputs.sops-nix.nixosModules.sops
-    ];
-  #ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFouIyzSfXTYwET9IhNvxkRDejrKEA+Rw3yke0KF0crP ghostyyistoasty@nixos
+  imports = [
+    ./hardware-configuration.nix
+    inputs.sops-nix.nixosModules.sops
+    inputs.home-manager.nixosModules.default
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -58,14 +57,24 @@
     ];
   };
 
-  programs.thunar.enable = true;
-  programs.xfconf.enable = true;
-  programs.firefox.enable = true;
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+home-manager = {
+  users.ghostyyistoasty = {
+    imports = [ 
+    ];
+  };
+};
+
+  programs = {
+    thunar.enable = true;
+    xfconf.enable = true;
+    firefox.enable = true;
+    
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+    };
   };
 
   xdg.portal.enable = true;
@@ -80,15 +89,20 @@
     brightnessctl
     discord
     dunst
+    ffmpeg
     font-awesome
     git
     helix
+    imagemagick
     kitty
+    home-manager
     hypridle
     hyprlock
     libnotify
     lz4
     networkmanagerapplet
+    pavucontrol
+    playerctl
     pywal
     rofi-screenshot
     rofi-wayland
@@ -104,24 +118,28 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    fira-code
   ];
 
   services.tumbler.enable = true;
+
 
   nix.settings = {
     substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
 
+  programs.ssh.startAgent = true;
+
   hardware = {
     graphics.enable=true;
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
-  };
+  # nix.gc = {
+  # automatic = true;
+  # dates = "weekly";
+  # options = "--delete-older-than 7d";
+  # };
 
   sops.defaultSopsFile = ../common/secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
