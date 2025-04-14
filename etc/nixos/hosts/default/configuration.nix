@@ -57,13 +57,6 @@
     ];
   };
 
-home-manager = {
-  users.ghostyyistoasty = {
-    imports = [ 
-    ];
-  };
-};
-
   programs = {
     thunar.enable = true;
     xfconf.enable = true;
