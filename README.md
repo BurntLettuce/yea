@@ -1,9 +1,9 @@
 # Nixos Config
 
-Stuff
+Stuff:
 Flakes ✔
 Home Manager ✔
 
-To do
+To do:
 Secrets ✗
 Hyprland Module ✗
