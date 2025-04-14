@@ -1,9 +1,14 @@
+
 {
 description = "nixos config";
 
 inputs = {
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
+    };
+    home-manager = {
+        url = "github:nix-community/home-manager";
+        inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
         url = "github:hyprwm/Hyprland";
@@ -28,14 +33,26 @@ inputs = {
             specialArgs = { inherit inputs; };
             modules = [
                 ./hosts/default/configuration.nix
-            ];
-        };
+		inputs.home-manager.nixosModules.home-manager
+                {
+                   home-manager = {
+         	      backupFileExtension = "backup";
+         	      useGlobalPkgs = true;
+       		      useUserPackages = true;
+        	      users.ghostyyistoasty = {
+ 		          imports = [ ./home.nix ];
+        	      };
+      		   };
+	        }
+	    ];
+ 	};
         scuffed = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
-            modules = [
-                ./hosts/scuffed/configuration.nix
-            ];
+	    modules = [
+	    	./hosts/scuffed/configuration.nix
+	    ];
         };
       };
     };
 }
+`
