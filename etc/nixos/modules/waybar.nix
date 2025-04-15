@@ -1,7 +1,7 @@
-{config, lib, pkgs, ...}: let
+{ config, lib, pkgs, ... }:
+
+let
   mkScript = {
-    # Keep your existing mkScript/mkScriptJson implementations
-    # from the original example here
     name ? "script",
     deps ? [],
     script ? "",
@@ -115,21 +115,16 @@ in {
       };
     };
 
-    style = let
-      inherit (inputs.nix-colors.lib.conversions) hexToRGBString;
-      inherit (config.colorscheme) colors;
-      toRGBA = color: opacity: "rgba(${hexToRGBString "," (lib.removePrefix "#" color)},${opacity})";
-    in
-      ''
+    style = ''
       * {
         font-family: "JetBrains Mono NerdFont";
         font-size: 0.8rem;
         padding: 0;
-        margin: 0 0.4em;
+        margin: 0 0.1em;
       }
 
       window#waybar {
-        background-color: ${toRGBA colors.base00 "0.7"};
+        background-color: rgba(0, 0, 0, 0);
         border-radius: 0.5rem;
       }
 
@@ -137,48 +132,57 @@ in {
         background: linear-gradient(50deg, rgb(150, 222, 209), rgb(5, 166, 252));
         color: #ffffff;
         border-radius: 0.5rem;
-        padding: 0 2px;
+        padding: 0 1px;
+        margin: 0 1px;
       }
 
       .modules-right {
         background-color: rgba(0,0,0,0.5);
         border-radius: 0.5rem;
-        padding: 2px 2px 2px 10px;
+        padding: 0 5px;
+        margin: 0 1px;
         color: #ffffff;
         border-left: 2px solid rgb(150, 222, 209);
         border-right: 2px solid rgb(5, 166, 252);
       }
 
+      label.module {
+        margin-left: -1px;
+      }
+
       #workspaces {
         background-color: rgba(0,0,0,0.5);
         border-radius: 0.5rem;
-        padding: 0 2px;
+        padding: 0 1px;
+        margin: 0 1px;
       }
 
       #workspaces button {
         font-size: 0.6rem;
-        padding: 0 0.3rem 0 0;
+        padding: 0 0.2rem;
+        margin: 0 1px;
         color: #ffffff;
       }
 
       #window {
         background-color: rgba(0,0,0,0.5);
         border-radius: 0.5rem;
-        padding: 2px 5px;
+        padding: 0 3px;
+        margin: 0 1px;
       }
 
       #clock {
         font-weight: bolder;
         border-radius: 0.5rem;
-        padding: 0 3px 0 0;
+        padding: 0 2px;
+        margin: 0 1px;
       }
-
-      #battery { color: lightgreen; }
-      #memory { color: lightpink; }
-      #disk { color: lightskyblue; }
-      #cpu { color: lightgoldenrodyellow; }
-      #temperature { color: lightslategray; }
+ 
+      #battery { color: #90ee90; }
+      #memory { color: #ffb6c1; }
+      #disk { color: #87cefa; }
+      #cpu { color: #fafad2; }
+      #temperature { color: #778899; }
     '';
   };
-
 }
