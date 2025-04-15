@@ -1,10 +1,10 @@
 { config, pkgs, inputs, lib, ... }:
 
 {
-  imports =
-    [
+  imports = [
       ./hardware-configuration.nix
       inputs.sops-nix.nixosModules.sops
+      inputs.home-manager.nixosModules.default
     ];
 
   networking.firewall.enable = true;
