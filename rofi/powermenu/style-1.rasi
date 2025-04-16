@@ -2,7 +2,7 @@
  *
  * Author : Aditya Shakya (adi1090x)
  * Github : @adi1090x
- *
+ * 
  * Rofi Theme File
  * Rofi Version: 1.7.3
  **/
@@ -14,50 +14,62 @@ configuration {
 
 /*****----- Global Properties -----*****/
 * {
-    /* Resolution : 1920x1080 */
-    mainbox-spacing:             75px;
-    mainbox-margin:              100px 300px;
-    message-margin:              0px 400px;
-    message-padding:             15px;
-    message-border-radius:       100%;
-    listview-spacing:            50px;
-    element-padding:             55px 60px;
-    element-border-radius:       100%;
-
-    prompt-font:                 "JetBrains Mono Nerd Font Bold Italic 64";
-    textbox-font:                "JetBrains Mono Nerd Font 16";
-    element-text-font:           "feather 64";
-
-    background-window:           black/5%;
-    background-normal:           white/5%;
-    background-selected:         white/15%;
-    foreground-normal:           white;
-    foreground-selected:         white;
+    font:                        "JetBrains Mono Nerd Font 10";
+    background:                  #131D1F;
+    background-alt:              #183A43;
+    foreground:                  #FFFFFF;
+    selected:                    #649094;
+    active:                      #E9CC9D;
+    urgent:                      #FEA861;
 }
+
+/*
+USE_BUTTONS=YES
+*/
 
 /*****----- Main Window -----*****/
 window {
     transparency:                "real";
     location:                    center;
     anchor:                      center;
-    fullscreen:                  true;
+    fullscreen:                  false;
+    height:                      530px;
+    width:                       800px;
+    x-offset:                    0px;
+    y-offset:                    0px;
+
+    padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @selected;
     cursor:                      "default";
-    background-color:            var(background-window);
+    background-color:            @background;
 }
 
 /*****----- Main Box -----*****/
 mainbox {
-    enabled:                     true;
-    spacing:                     var(mainbox-spacing);
-    margin:                      var(mainbox-margin);
     background-color:            transparent;
-    children:                    [ "dummy", "inputbar", "listview", "message", "dummy" ];
+    orientation:                 horizontal;
+    children:                    [ "imagebox", "listview" ];
+}
+
+/*****----- Imagebox -----*****/
+imagebox {
+    expand:                      false;
+    width:                       640px;
+    spacing:                     0px;
+    padding:                     50px;
+    background-color:            transparent;
+    background-image:            url("~/wallpapers/wallpaper2.jpg", height);
+    children:                    [ "inputbar", "dummy", "message" ];
 }
 
 /*****----- Inputbar -----*****/
 inputbar {
-    enabled:                     true;
-    background-color:            transparent;
+    padding:                     20px;
+    border-radius:               0px;
+    background-color:            @urgent;
+    text-color:                  @background;
     children:                    [ "dummy", "prompt", "dummy"];
 }
 
@@ -66,24 +78,21 @@ dummy {
 }
 
 prompt {
-    enabled:                     true;
-    font:                        var(prompt-font);
-    background-color:            transparent;
-    text-color:                  var(foreground-normal);
+    background-color:            inherit;
+    text-color:                  inherit;
 }
 
 /*****----- Message -----*****/
 message {
     enabled:                     true;
-    margin:                      var(message-margin);
-    padding:                     var(message-padding);
-    border-radius:               var(message-border-radius);
-    background-color:            var(background-normal);
-    text-color:                  var(foreground-normal);
+    margin:                      0px;
+    padding:                     20px;
+    border-radius:               0px;
+    background-color:            @active;
+    text-color:                  @background;
 }
 textbox {
-    font:                        var(textbox-font);
-    background-color:            transparent;
+    background-color:            inherit;
     text-color:                  inherit;
     vertical-align:              0.5;
     horizontal-align:            0.5;
@@ -92,9 +101,8 @@ textbox {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    expand:                      false;
-    columns:                     5;
-    lines:                       1;
+    columns:                     1;
+    lines:                       6;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -102,8 +110,9 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-
-    spacing:                     var(listview-spacing);
+    
+    spacing:                     30px;
+    margin:                      30px;
     background-color:            transparent;
     cursor:                      "default";
 }
@@ -111,14 +120,14 @@ listview {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    padding:                     var(element-padding);
-    border-radius:               var(element-border-radius);
-    background-color:            var(background-normal);
-    text-color:                  var(foreground-normal);
+    padding:                     20px 10px;
+    border-radius:               0px;
+    background-color:            @background-alt;
+    text-color:                  @foreground;
     cursor:                      pointer;
 }
 element-text {
-    font:                        var(element-text-font);
+    font:                        "feather bold 16";
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;
@@ -126,6 +135,6 @@ element-text {
     horizontal-align:            0.5;
 }
 element selected.normal {
-    background-color:            var(background-selected);
-    text-color:                  var(foreground-selected);
+    background-color:            var(selected);
+    text-color:                  var(background);
 }
