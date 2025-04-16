@@ -8,13 +8,13 @@ uptime="`uptime -p | sed -e 's/up //g'`"
 host=`hostname`
 
 # Options
-shutdown='⊘'
-lock='⊙'
-reboot='⍭'
-logout='␣'
-suspend='↝'
-yes='✓'
-no='✕'
+shutdown=''   # nf-fa-power_off
+lock=''       # nf-fa-lock
+reboot=''     # nf-fa-refresh (or  nf-fa-rotate_right)
+logout=''     # nf-fa-sign_out_alt
+suspend=''    # nf-fa-moon_o
+yes=''        # nf-fa-check_circle
+no=''         # nf-fa-times_circle
 
 # Rofi CMD
 rofi_cmd() {
