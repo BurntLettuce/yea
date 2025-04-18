@@ -13,6 +13,8 @@
 
   imports = [
     ./modules/waybar.nix
+    ./modules/fastfetch.nix
+    ./modules/hypr.nix
   ];
 
   # Enable dconf (optional for GNOME users)
