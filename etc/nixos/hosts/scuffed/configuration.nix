@@ -96,6 +96,7 @@
     sops
   ];
 
+  # +8096
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 4533 ];
