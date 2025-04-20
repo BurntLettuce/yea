@@ -8,4 +8,4 @@ To do:
 Secrets ✗
 Hyprland Module ✗
 
-Learnt: scp/scp -r, chmod -R g+w/g+s
+Learnt: scp/scp -r, chmod -R g+w/g+s, rsync -avz --delete, 
