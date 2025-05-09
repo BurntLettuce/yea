@@ -146,6 +146,15 @@
   # options = "--delete-older-than 7d";
   # };
 
+  security.pam.services.hyprlock = {
+   text = ''
+     auth include login
+     account include login
+     password include login
+     session include login
+    '';
+  };
+
   networking.wg-quick.interfaces = {
     wg0 = {
      address = [ "10.0.0.2/24" ];
