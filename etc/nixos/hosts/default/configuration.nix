@@ -57,6 +57,12 @@
     ];
   };
 
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [ fcitx5-chewing ];
+  };
+
   programs = {
     thunar.enable = true;
     xfconf.enable = true;
@@ -82,9 +88,11 @@
     brightnessctl
     discord
     dunst
+    fastfetch
     ffmpeg
     font-awesome
     git
+    gromit-mpx
     helix
     imagemagick
     kitty
@@ -100,7 +108,7 @@
     rofi-screenshot
     rofi-wayland
     sops
-    swww
+    soulseekqt
     tauon
     lz4
     vscode
@@ -114,8 +122,10 @@
     fira-code
   ];
 
-  services.tumbler.enable = true;
-
+  services = {
+    tumbler.enable = true;
+    blueman.enable = true;
+  };
 
   nix.settings = {
     substituters = ["https://hyprland.cachix.org"];
@@ -125,7 +135,9 @@
   programs.ssh.startAgent = true;
 
   hardware = {
-    graphics.enable=true;
+    graphics.enable = true;
+    bluetooth.enable = true;
+    bluetooth.powerOnBoot = true;
   };
 
   # nix.gc = {
@@ -133,6 +145,25 @@
   # dates = "weekly";
   # options = "--delete-older-than 7d";
   # };
+
+  networking.wg-quick.interfaces = {
+    wg0 = {
+     address = [ "10.0.0.2/24" ];
+      privateKeyFile = config.sops.secrets."wireguard/private-key".path;      
+      peers = [
+        {
+          publicKey = "H6MgkDP53l4F6K2WtasnUtwsYGhIueE7tcEhJUXypVM=";
+          allowedIPs = [ "192.168.1.249/32" ];
+          endpoint = "100.18.33.168:30912";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
+
+  sops.secrets."wireguard/private-key" = {
+    owner = "ghostyyistoasty";
+  };
 
   sops.defaultSopsFile = ../common/secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
