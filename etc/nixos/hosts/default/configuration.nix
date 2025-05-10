@@ -163,7 +163,7 @@
         {
           publicKey = "H6MgkDP53l4F6K2WtasnUtwsYGhIueE7tcEhJUXypVM=";
           allowedIPs = [ "192.168.1.249/32" ];
-          endpoint = "100.18.33.168:30912";
+          endpoint = "######:30912";
           persistentKeepalive = 25;
         }
       ];
