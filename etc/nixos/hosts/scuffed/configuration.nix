@@ -7,6 +7,54 @@
       inputs.sops-nix.nixosModules.sops
     ];
 
+  networking.nat = {
+    enable = true;
+    enableIPv6 = true;
+    externalInterface = "eth0";
+    internalInterfaces = [ "wg0" ];
+  };
+  networking.firewall = {
+    allowedTCPPorts = [ 53  4533  8080];
+    allowedUDPPorts = [ 53  30912 ];
+  };
+
+  networking.wg-quick.interfaces = {
+    wg0 = {
+      address = [ "10.0.0.1/24" ];
+      listenPort = 30912;
+      privateKeyFile = config.sops.secrets."wireguard/private-key".path;
+
+      postUp = ''
+        ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -o eth0 -j MASQUERADE
+      '';
+      preDown = ''
+        ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
+        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.0.0.0/24 -o eth0 -j MASQUERADE
+      '';
+
+      peers = [
+        {
+          publicKey = "8YrZuC6Swmx9tybtyRTvg8Qnuu0F60qM7giuJEnOkj4=";
+          allowedIPs = [ "10.0.0.2/32" ];
+        }
+      ];
+    };
+  };
+
+  sops.defaultSopsFile = ../common/secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+
+  sops.age.keyFile = "/home/ghostyytoastyy/.config/sops/age/keys.txt";
+
+  sops.secrets."wireguard/private-key" = {
+    owner = "ghostyytoastyy";
+  };
+
+  sops.secrets.example-key = { };
+  sops.secrets."myservice/my_subdir/my_secret" = {
+      owner = "ghostyytoastyy";
+  };
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -26,30 +74,6 @@
     LC_PAPER = "en_US.UTF-8";
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
-  };
-
-  services.openssh = {
-    enable = true;
-    # require public key authentication for better security
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
-    #settings.PermitRootLogin = "yes";
-  };
-
-  services.navidrome = {
-    enable = true;
-    settings = {
-      MusicFolder = "/var/lib/navidrome/music";
-      Address = "0.0.0.0";
-      Port = 4533;
-      LastFM.Enabled = false;  
-      Spotify.Enabled = false;
-    };  
-  };
-
-  services.jellyfin = {
-    enable = true;
-    openFirewall = true;
   };
 
   services.xserver.enable = true;
@@ -76,12 +100,11 @@
   users.users.ghostyytoastyy = {
     isNormalUser = true;
     description = "main user";
-    extraGroups = [ "networkmanager" "wheel" "navidrome" ];
+    extraGroups = [ "networkmanager" "wheel" "navidrome" "sonarr"  ];
     packages = with pkgs; [
       kdePackages.kate
     ];
   };
-
   programs.firefox.enable = true;
   programs.dconf.enable = true;
   nixpkgs.config.allowUnfree = true;
@@ -92,37 +115,51 @@
     jellyfin-web
     jellyfin-ffmpeg
     kitty
+
     navidrome
+    qbittorrent-nox    
+    sabnzbd
+
     sops
+    wireguard-tools
   ];
 
-  # +8096
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 4533 ];
+  services = {
+    navidrome = {
+      enable = true;
+      settings = {
+        MusicFolder = "/var/lib/navidrome/music";
+        Address = "0.0.0.0";
+        Port = 4533;
+        LastFM.Enabled = false;  
+        Spotify.Enabled = false;
+      };
+    };  
+    jellyfin = {
+      enable = true;
+      openFirewall = true;
+    };
+    jackett = {
+      enable = true;
+      openFirewall = true; # Opens port 9117
+    };
+    sonarr = {
+      enable = true;
+      openFirewall = true;
+      dataDir = "/var/lib/sonarr";
+    };
+    openssh = {
+      enable = true;
+      settings.PasswordAuthentication = false;
+      settings.KbdInteractiveAuthentication = false;
+    };
   };
-
 
   users.users.ghostyytoastyy.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFouIyzSfXTYwET9IhNvxkRDejrKEA+Rw3yke0KF0crP ghostyyistoasty@nixos"
   ];
 
-  sops.defaultSopsFile = ../common/secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
-
-  sops.age.keyFile = "/home/ghostyytoastyy/.config/sops/age/keys.txt";
-
-  sops.secrets.example-key = { };
-  sops.secrets."myservice/my_subdir/my_secret" = {
-      owner = "ghostyytoastyy";
-  };
-
   nix.settings.trusted-users = [ "ghostyyistoasty" "@wheel" ];
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   system.stateVersion = "24.11";
