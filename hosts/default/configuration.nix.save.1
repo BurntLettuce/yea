@@ -6,13 +6,8 @@
     inputs.home-manager.nixosModules.default
   ];
 
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    extraModulePackages = with config.boot.kernelPackages; [ rtw88 ];
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -32,26 +27,24 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-    videoDrivers = [ "modesetting" ];
-  };
+  services.xserver.enable = true;
 
-  services.displayManager.sddm = {
-    enable = true; # Enable SDDM.
-    extraPackages = with pkgs; [
-      kdePackages.qtsvg
-      kdePackages.qtmultimedia
-    ];
-    wayland.enable = true;
-    theme = "sddm-stray"; 
-  };
+   services.displayManager.sddm = {
+      enable = true; # Enable SDDM.
+      extraPackages = with pkgs; [
+        kdePackages.qtsvg
+        kdePackages.qtmultimedia
+      ];
+      wayland.enable = true;
+      theme = "sddm-stray"; 
+    };
 
   services.desktopManager.plasma6.enable = true;
+
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
 
   services.atd.enable = true;
   services.printing.enable = true;
@@ -68,7 +61,7 @@
   users.users.ghostyyistoasty = {
     isNormalUser = true;
     description = "ghostyyisToasty";
-    extraGroups = [ "networkmanager" "wireshark" "wheel" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wireshark"  "wheel" "libvirtd" ];
     packages = with pkgs; [
     ];
   };
@@ -102,22 +95,18 @@
 
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
     inputs.swww.packages.${pkgs.system}.swww
-    inputs.tpanel.packages.${system}.default
     age
     angryoxide
     brightnessctl
     discord
-    easyeffects
     fastfetch
     ferrishot
     ffmpeg
@@ -126,6 +115,8 @@
     gromit-mpx
     helix
     imagemagick
+    intel-compute-runtime
+    intel-media-driver
     kitty
     hashcat
     hcxtools
@@ -135,16 +126,15 @@
     libnotify
     lz4
     networkmanagerapplet
-    nmap
     nicotine-plus
     pavucontrol
     playerctl
     pywal
     rofi-screenshot
     rofi-wayland
+    sakura
     sops
     swaynotificationcenter
-    ladybird
     tauon
     traceroute
     lz4
@@ -153,6 +143,7 @@
     qt6.qtsvg
     qt6.qtquick3d
     qt6.qtmultimedia
+    qutebrowser
     inputs.sddm-stray.packages.${pkgs.system}.default
     unrar
     vscode
@@ -165,9 +156,8 @@
     spice-protocol
     win-virtio
     win-spice
-    clinfo
-    ocl-icd
   ];
+
 
   # Manage the virtualisation services
   virtualisation = {
@@ -181,6 +171,7 @@
     };
     spiceUSBRedirection.enable = true;
   };
+  services.spice-vdagentd.enable = true;
 
 
   fonts.packages = with pkgs; [
@@ -192,7 +183,6 @@
   services = {
     tumbler.enable = true;
     blueman.enable = true;
-    spice-vdagentd.enable = true;
   };
 
   nix.settings = {
@@ -203,25 +193,16 @@
   programs.ssh.startAgent = true;
 
   hardware = {
-    graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        intel-media-driver
-        vpl-gpu-rt    
-        intel-compute-runtime-legacy1 
-      ];
-    };
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
+    graphics.enable = true;
+    bluetooth.enable = true;
+    bluetooth.powerOnBoot = true;
   };
 
-  #   nix.gc = {
-  #  automatic = true;
-  #  dates = "weekly";
-  #  options = "--delete-older-than 7d";
-  #  };
+   nix.gc = {
+   automatic = true;
+   dates = "weekly";
+   options = "--delete-older-than 7d";
+   };
 
   security.pam.services.hyprlock = {
    text = ''
@@ -241,7 +222,7 @@
         {
           publicKey = "H6MgkDP53l4F6K2WtasnUtwsYGhIueE7tcEhJUXypVM=";
           allowedIPs = [ "192.168.1.249/32" ];
-          endpoint = "71.245.162.7:30912";
+          endpoint = "100.18.33.168:30912";
           persistentKeepalive = 25;
         }
       ];
@@ -255,16 +236,16 @@
           publicKey = "NRMY4vETagf+4E4XwNzY7F7Rvj2mv91OkyjwgX/R+XE=";
           presharedKeyFile = "/home/ghostyyistoasty/wireguard-keys/presharedkey";          
           allowedIPs = [ "192.168.1.211/32" "::ffff:c0a8:1d3/32"];
-          endpoint = "71.245.162.7:51820";
+          endpoint = "100.18.33.168:51820";
           persistentKeepalive = 25;
         }
       ];  
     };  
   };
 
-  #  sops.secrets."wireguard/private-key" = {
-  #    owner = "ghostyyistoasty";
-  #  };
+#  sops.secrets."wireguard/private-key" = {
+#    owner = "ghostyyistoasty";
+#  };
 
   sops.defaultSopsFile = ../common/secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
@@ -275,6 +256,8 @@
   sops.secrets."myservice/my_subdir/my_secret" = {
     owner = "ghostyyistoasty";
   };
+
+
 
   system.stateVersion = "24.11";
 }

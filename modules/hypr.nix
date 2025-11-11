@@ -121,8 +121,12 @@ in {
         "${mod}, M, exit"
         "${mod}, E, exec, ${fileManager}"
         "${mod}, V, togglefloating"
-        "${mod}, R, exec, ${menu}"
-
+        "${mod}, R, exec, ferrishot"
+	"${mod}, W, exec, wireshark"
+        "${mod}, Z, fullscreen"  
+        "${mod}, F9, exec, gromit-mpx --toggle --visibility"
+       ", F8, exec, gromit-mpx --undo"
+        "SHIFT, F8, exec, gromit-mpx --redo"
         # Focus movement
         "${mod}, left, movefocus, l"
         "${mod}, right, movefocus, r"
@@ -167,11 +171,21 @@ in {
         "${mod}, mouse:273, resizewindow"
       ];
 
+      workspace = ["special:gromit, gapsin:0, gapsout:0, on-created-empty: gromit-mpx -a"];
+      
       # Window rules
       windowrulev2 = [
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
         "opacity 0.80 0.85, class:^(.*)$"
+        "noblur, class:^(Gromit-mpx)$"
+        "opacity 1, class:^(Gromit-mpx)$"
+        "noshadow, class:^(Gromit-mpx)$"
+        "float, class:^(Gromit-mpx)$"
+  	"pin, class:^(Gromit-mpx)$"
+ 	"noinitialfocus, class:^(Gromit-mpx)$"           
+	"noborder, class:^(Gromit-mpx)$" 
+  	"dimaround, 0, class:^(Gromit-mpx)$"      
       ];
 
       # Startup

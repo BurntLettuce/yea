@@ -12,11 +12,18 @@ inputs = {
     hyprland = {
         url = "github:hyprwm/Hyprland";
     };
-    swww = {
+    sddm-stray = {
+      url = "github:Bqrry4/sddm-stray";
+    };
+     swww = {
       url = "github:LGFae/swww";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    tpanel = {
+      url = "github:tuxdotrs/tpanel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 };

@@ -18,7 +18,6 @@
     ./modules/hypr.nix
   ];
 
-  # Enable dconf (optional for GNOME users)
   dconf.enable = true;
  
   gtk = {
@@ -33,8 +32,4 @@
      };
   };
 
-  home.sessionVariables = {
-    # EDITOR = "nvim";
-    # BROWSER = "firefox";
-  };
 }
