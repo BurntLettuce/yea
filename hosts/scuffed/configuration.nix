@@ -35,8 +35,12 @@
 
       peers = [
         {
-          publicKey = "8YrZuC6Swmx9tybtyRTvg8Qnuu0F60qM7giuJEnOkj4=";
+          publicKey = "a4ITZ58dnlF0sS5FiADXzn3DW7TaFPzvBXVDiYz9324=";
           allowedIPs = [ "10.0.0.2/32" ];
+        }
+        {
+          publicKey = "gMwdY3UEHGsMidURtSpEFt4HSsufmrpGBZJbDClijX0=";
+          allowedIPs = [ "10.0.0.3/32" ];
         }
       ];
     };
@@ -55,6 +59,7 @@
   sops.secrets."myservice/my_subdir/my_secret" = {
       owner = "ghostyytoastyy";
   };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -105,23 +110,30 @@
       kdePackages.kate
     ];
   };
+ 
   programs.firefox.enable = true;
   programs.dconf.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
     age
+    clinfo  
+    hashcat
     jellyfin
     jellyfin-web
     jellyfin-ffmpeg
     kitty
-
+    
     navidrome
+    pciutils
+   
     qbittorrent-nox    
     sabnzbd
-
+  
     sops
     wireguard-tools
+
+    hcxtools
   ];
 
   services = {
@@ -155,8 +167,19 @@
     };
   };
 
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      mesa.opencl # This package provides Rusticl
+    ];
+  };
+
+  environment.variables = {
+    RUSTICL_ENABLE = "radeonsi"; # Explicitly enable Rusticl for AMD GPUs
+  };
+
   users.users.ghostyytoastyy.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFouIyzSfXTYwET9IhNvxkRDejrKEA+Rw3yke0KF0crP ghostyyistoasty@nixos"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHF/RJRc+8fRilYNBUVBQzg6hfpW0T8TK5/zh9PFkhEP ghostyyistoasty@nixos"
   ];
 
   nix.settings.trusted-users = [ "ghostyyistoasty" "@wheel" ];
