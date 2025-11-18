@@ -107,6 +107,7 @@ in {
 
       # Keybinds
       bind = [
+	"${mod}, shift, exec, cyclenext"
 	"${mod}, A, exec, rofi-screenshot"
 	"${mod}, B, exec, blueman-manager"
 	"${mod}, C, killactive"

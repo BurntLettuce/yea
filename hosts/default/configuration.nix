@@ -113,6 +113,7 @@
   environment.systemPackages = with pkgs; [
     inputs.swww.packages.${pkgs.system}.swww
     inputs.tpanel.packages.${system}.default
+    inputs.sddm-stray.packages.${pkgs.system}.default
     age
     angryoxide
     brightnessctl
@@ -124,7 +125,6 @@
     font-awesome
     git
     gromit-mpx
-    helix
     imagemagick
     kitty
     hashcat
@@ -153,7 +153,6 @@
     qt6.qtsvg
     qt6.qtquick3d
     qt6.qtmultimedia
-    inputs.sddm-stray.packages.${pkgs.system}.default
     unrar
     vscode
     waybar
