@@ -13,9 +13,9 @@
   ];
 
   imports = [
-    ./modules/waybar.nix
     ./modules/fastfetch.nix
     ./modules/hypr.nix
+    ./modules/waybar.nix
   ];
 
   dconf.enable = true;

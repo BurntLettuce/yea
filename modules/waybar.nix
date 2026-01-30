@@ -19,7 +19,7 @@ in {
         height = 26;
         margin = "5";
         spacing = 10;
-        output = "eDP-1";
+        output = "DSI-1";
         modules-left = ["hyprland/workspaces"];
         modules-center = ["hyprland/window"];
         modules-right = [

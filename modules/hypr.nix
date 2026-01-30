@@ -8,7 +8,7 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
-      monitor = ",1920x1080@60,auto,1";
+      monitor = "DSI-1,1200x1920@60,auto,1,transform,3";
 
       # Variables
       "$terminal" = term;

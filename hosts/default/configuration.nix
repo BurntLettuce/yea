@@ -32,30 +32,40 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  services.xserver = {
+  i18n.inputMethod = {
     enable = true;
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-    videoDrivers = [ "modesetting" ];
-  };
-
-  services.displayManager.sddm = {
-    enable = true; # Enable SDDM.
-    extraPackages = with pkgs; [
-      kdePackages.qtsvg
-      kdePackages.qtmultimedia
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [ 
+	fcitx5-chewing  
     ];
-    wayland.enable = true;
-    theme = "sddm-stray"; 
   };
 
-  services.desktopManager.plasma6.enable = true;
-
-  services.atd.enable = true;
-  services.printing.enable = true;
-
+  services = {
+    blueman.enable = true;
+    spice-vdagentd.enable = true;
+    xserver = {
+      enable = true;
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+      videoDrivers = [ "modesetting" ];
+    };
+    # Displays
+    desktopManager.plasma6.enable = true;
+    displayManager.sddm = {
+      enable = true;
+      extraPackages = with pkgs; [
+        kdePackages.qtsvg
+        kdePackages.qtmultimedia
+      ];
+      wayland.enable = true;
+      theme = "sddm-stray"; 
+    };
+    atd.enable = true;
+    printing.enable = true;
+  };
+ 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -71,12 +81,6 @@
     extraGroups = [ "networkmanager" "wireshark" "wheel" "libvirtd" ];
     packages = with pkgs; [
     ];
-  };
-
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-    fcitx5.addons = with pkgs; [ fcitx5-chewing ];
   };
 
   programs = {
@@ -104,8 +108,11 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
+    extraPortals = with pkgs; [
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
+    ];
+  };     
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
@@ -166,6 +173,7 @@
     win-spice
     clinfo
     ocl-icd
+    xdg-utils
   ];
 
   # Manage the virtualisation services
@@ -187,12 +195,6 @@
     fira-code
     noto-fonts-cjk-sans
   ];
-
-  services = {
-    tumbler.enable = true;
-    blueman.enable = true;
-    spice-vdagentd.enable = true;
-  };
 
   nix.settings = {
     substituters = ["https://hyprland.cachix.org"];
