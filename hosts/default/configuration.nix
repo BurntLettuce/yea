@@ -42,7 +42,6 @@
 
   services = {
     blueman.enable = true;
-    spice-vdagentd.enable = true;
     xserver = {
       enable = true;
       xkb = {
@@ -165,15 +164,8 @@
     waybar
     wireguard-tools
     zathura
-    virt-manager
-    virt-viewer
-    spice spice-gtk
-    spice-protocol
-    win-virtio
-    win-spice
     clinfo
     ocl-icd
-    xdg-utils
   ];
 
   # Manage the virtualisation services
@@ -188,7 +180,7 @@
     };
     spiceUSBRedirection.enable = true;
   };
-
+  services.spice-vdagentd.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono

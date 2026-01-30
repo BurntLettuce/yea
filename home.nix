@@ -16,6 +16,7 @@
     ./modules/fastfetch.nix
     ./modules/hypr.nix
     ./modules/waybar.nix
+    ./modules/vm.nix
   ];
 
   dconf.enable = true;
