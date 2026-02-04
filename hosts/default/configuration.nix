@@ -146,6 +146,7 @@
     pavucontrol
     playerctl
     pywal
+    quickshell
     rofi-screenshot
     rofi-wayland
     sops

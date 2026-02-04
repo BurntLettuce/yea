@@ -59,6 +59,11 @@ in {
           };
         };
 
+        "tray" = {
+          spacing = 9;
+	  icon-size = 15;
+        };
+
         idle_inhibitor = {
           format = "{icon}";
           format-icons = {
@@ -104,10 +109,6 @@ in {
           format = " {usage}%";
         };
 
-        temperature = {
-          interval = 10;
-        };
-
         clock = {
           interval = 1;
           format = "{:%H:%M:%S}";
@@ -150,6 +151,10 @@ in {
         margin-left: -1px;
       }
 
+      #tray > * {
+        margin: 0 3px;
+      }
+
       #workspaces {
         background-color: rgba(0,0,0,0.5);
         border-radius: 0.5rem;
@@ -188,7 +193,6 @@ in {
       #memory { color: #ffb6c1; }
       #disk { color: #87cefa; }
       #cpu { color: #fafad2; }
-      #temperature { color: #778899; }
     '';
   };
 }
