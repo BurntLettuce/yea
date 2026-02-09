@@ -26,12 +26,18 @@ inputs = {
       url = "github:tuxdotrs/tpanel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprproxlock-src = {
+      url = "github:Da4ndo/hyprproxlock";
+      flake = false;
+    };
 };
 
   outputs = { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+
+      hyprproxlock = pkgs.callPackage ./pkgs/hyprproxlock.nix { };
     in
     {
       nixosConfigurations = {
@@ -50,6 +56,16 @@ inputs = {
         	      };
      		   };
 	        }
+                ({ pkgs, lib, ... }: {
+                  nixpkgs.overlays = [
+                    (final: prev: {
+     		      hyprproxlock = prev.callPackage "${self}/pkgs/hyprproxlock.nix" {
+       			 hyprlock = prev.hyprlock;
+       			 bluez = prev.bluez;
+		      };
+                    })
+                  ];
+                })
 	    ];
  	};
         scuffed = nixpkgs.lib.nixosSystem {

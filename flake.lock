@@ -378,6 +378,22 @@
         "type": "github"
       }
     },
+    "hyprproxlock-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1746140019,
+        "narHash": "sha256-EoMxYMQBRP1fDfUorrkrgKDrVI88Ctusp2+1a7tnSU0=",
+        "owner": "Da4ndo",
+        "repo": "hyprproxlock",
+        "rev": "a4f96b44e025414b452a7540393b7a171ddaeb47",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Da4ndo",
+        "repo": "hyprproxlock",
+        "type": "github"
+      }
+    },
     "hyprutils": {
       "inputs": {
         "nixpkgs": [
@@ -519,6 +535,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "hyprproxlock-src": "hyprproxlock-src",
         "nixpkgs": "nixpkgs_2",
         "sddm-stray": "sddm-stray",
         "sops-nix": "sops-nix",
