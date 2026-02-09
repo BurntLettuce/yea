@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     owner = "Da4ndo";
     repo = pname;
     rev = "${version}";
-    hash = "sha256-8XxDFcIKiGQ4CvEl3+4Jh4EBU4R08i1ylVbWfNjkj6o="; # Update after first build
+    hash = "sha256-EoMxYMQBRP1fDfUorrkrgKDrVI88Ctusp2+1a7tnSU0="; # Update after first build
   };
 
   cargoHash = "sha256-O93RfRO2d1Wonv8yK1eKdR8nwDw0nUTf1UKBF1ugc1A="; # Update after first build
