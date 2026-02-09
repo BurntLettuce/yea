@@ -3,9 +3,10 @@
 , fetchFromGitHub
 , rustPlatform
 , pkg-config
+, makeWrapper  # <-- ADD THIS
 , hyprlock
 , bluez
-, dbus  # <-- ADD THIS
+, dbus
 }:
 
 rustPlatform.buildRustPackage rec {
