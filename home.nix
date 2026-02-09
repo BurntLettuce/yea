@@ -39,6 +39,27 @@
     }
   '';
 
+  home.file.".config/hypr/start.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      swww-daemon &
+      current_hour=$(date +%H)
+      if [[ "$current_hour" -ge 0 && "$current_hour" -lt 12 ]]; then
+        swww img ~/wallpapers/wallpaper2.jpg &
+      else
+        swww img ~/wallpapers/wallpaper1.jpg &
+      fi
+    
+      fcitx5 &
+      nm-applet --indicator &
+      waybar &
+      hypridle &
+      swaync &
+      hyprproxlock &  # Add this
+    '';
+  };
+
   dconf.enable = true;
  
   gtk = {

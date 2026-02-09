@@ -207,18 +207,18 @@ in {
     }
 
     listener {
-      timeout = 180  # 5 minutes
+      timeout = 300  # 5 minutes
       on-timeout = loginctl lock-session
     }
 
     listener {
-      timeout = 330  # 10 minutes
+      timeout = 900  # 15 minutes
       on-timeout = hyprctl dispatch dpms off
       on-resume = hyprctl dispatch dpms on
     }
 
     listener {
-      timeout = 1200  # 30 minutes
+      timeout = 1800  # 30 minutes
       on-timeout = systemctl suspend
     }
   '';
