@@ -207,7 +207,7 @@ in {
     }
 
     listener {
-      timeout = 300  # 5 minutes
+      timeout = 60  # 5 minutes
       on-timeout = loginctl lock-session
     }
 
