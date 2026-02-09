@@ -19,15 +19,12 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-EoMxYMQBRP1fDfUorrkrgKDrVI88Ctusp2+1a7tnSU0=";
   };
 
-  cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Will be updated
+  cargoHash = "sha256-rBZ3acHStmUzEU+lsFhNYvLVPeeZe6P+4OHyxHRe4CU="; # Will be updated
 
-  # Add dbus here for pkg-config to find dbus-1.pc
-  nativeBuildInputs = [ pkg-config dbus ];
-  
-  # Add dbus here for linking
+ # Add makeWrapper here
+  nativeBuildInputs = [ pkg-config makeWrapper dbus ];
   buildInputs = [ hyprlock bluez dbus ];
   
-  # Ensure bluez binaries are in PATH at runtime
   preFixup = ''
     wrapProgram $out/bin/hyprproxlock \
       --prefix PATH : "${lib.makeBinPath [ bluez ]}"
