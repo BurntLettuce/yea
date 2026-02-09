@@ -3,8 +3,9 @@
 , fetchFromGitHub
 , rustPlatform
 , pkg-config
-, hyprlock           # Added
-, bluez  # Added
+, hyprlock
+, bluez
+, dbus  # <-- ADD THIS
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -14,14 +15,23 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "Da4ndo";
     repo = pname;
-    rev = "${version}";
-    hash = "sha256-EoMxYMQBRP1fDfUorrkrgKDrVI88Ctusp2+1a7tnSU0="; # Update after first build
+    rev = version;
+    hash = "sha256-EoMxYMQBRP1fDfUorrkrgKDrVI88Ctusp2+1a7tnSU0=";
   };
 
-  cargoHash = "sha256-O93RfRO2d1Wonv8yK1eKdR8nwDw0nUTf1UKBF1ugc1A="; # Update after first build
+  cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Will be updated
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ hyprlock bluez ]; # Both are required
+  # Add dbus here for pkg-config to find dbus-1.pc
+  nativeBuildInputs = [ pkg-config dbus ];
+  
+  # Add dbus here for linking
+  buildInputs = [ hyprlock bluez dbus ];
+  
+  # Ensure bluez binaries are in PATH at runtime
+  preFixup = ''
+    wrapProgram $out/bin/hyprproxlock \
+      --prefix PATH : "${lib.makeBinPath [ bluez ]}"
+  '';
 
   meta = with lib; {
     description = "A proximity-based daemon for Hyprland that triggers screen locking via Bluetooth device proximity";
