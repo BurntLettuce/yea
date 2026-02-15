@@ -12,10 +12,7 @@
       efi.canTouchEfiVariables = true;
     };
     extraModulePackages = with config.boot.kernelPackages; [ rtw88 ];
-    kernelParam = [
-      "fbcon=rotate:1"
-    ]; 
- };
+  };
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
