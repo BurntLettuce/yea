@@ -45,14 +45,14 @@ inputs = {
             specialArgs = { inherit inputs; };
             modules = [
                 ./hosts/default/configuration.nix
-		inputs.home-manager.nixosModules.home-manager
+                inputs.home-manager.nixosModules.home-manager
                 {
                    home-manager = {
-         	      backupFileExtension = "hm-backup";
-         	      useGlobalPkgs = true;
-        	      useUserPackages = true;
-        	      users.ghostyyistoasty = {
- 		          imports = [ ./home.nix ];
+                      backupFileExtension = "hm-backup";
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      users.ghostyyistoasty = {
+                        imports = [ ./home.nix ];
         	      };
      		   };
 	        }
@@ -66,13 +66,13 @@ inputs = {
                     })
                   ];
                 })
-	    ];
- 	};
+            ];
+        };
         scuffed = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs; };
-	    modules = [
-	    	./hosts/scuffed/configuration.nix
-	    ];
+            modules = [
+              ./hosts/scuffed/configuration.nix
+            ];
         };
          chuwi = nixpkgs.lib.nixosSystem {
               specialArgs = { inherit inputs; };
