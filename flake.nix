@@ -52,16 +52,16 @@ inputs = {
                       useGlobalPkgs = true;
                       useUserPackages = true;
                       users.ghostyyistoasty = {
-                        imports = [ ./home.nix ];
+                         imports = [ ./home.nix ];
         	      };
      		   };
-	        }
-                ({ pkgs, lib, ... }: {
-                  nixpkgs.overlays = [
-                    (final: prev: {
-     		      hyprproxlock = prev.callPackage "${self}/pkgs/hyprproxlock.nix" {
-       			 hyprlock = prev.hyprlock;
-       			 bluez = prev.bluez;
+                 }
+                 ({ pkgs, lib, ... }: {
+                   nixpkgs.overlays = [
+                     (final: prev: {
+     	 	      hyprproxlock = prev.callPackage "${self}/pkgs/hyprproxlock.nix" {
+       		         hyprlock = prev.hyprlock;
+                         bluez = prev.bluez;
 		      };
                     })
                   ];
@@ -74,31 +74,31 @@ inputs = {
               ./hosts/scuffed/configuration.nix
             ];
         };
-         chuwi = nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit inputs; };
-              modules = [
-                  ./hosts/chuwi/configuration.nix
-                  inputs.home-manager.nixosModules.home-manager
-                  {
-                     home-manager = {
-                        backupFileExtension = "hm-backup";
-                        useGlobalPkgs = true;
-                        useUserPackages = true;
-                        users.ghostyyistoasty = {
-                            imports = [ ./home.nix ];
-                        };
+        chuwi = nixpkgs.lib.nixosSystem {
+             specialArgs = { inherit inputs; };
+             modules = [
+               ./hosts/chuwi/configuration.nix
+               inputs.home-manager.nixosModules.home-manager
+               {
+                  home-manager = {
+                     backupFileExtension = "hm-backup";
+                     useGlobalPkgs = true;
+                     useUserPackages = true;
+                     users.ghostyyistoasty = {
+                        imports = [ ./home.nix ];
                      };
-                  }
-                  ({ pkgs, lib, ... }: { 
-                    nixpkgs.overlays = [
-                      (final: prev: {
-                        hyprproxlock = prev.callPackage "${self}/pkgs/hyprproxlock.nix" {
-                           hyprlock = prev.hyprlock;
-                           bluez = prev.bluez;
-                        };
-                      })
-                    ];
-                  })
+                   };
+                }
+                ({ pkgs, lib, ... }: { 
+                  nixpkgs.overlays = [
+                    (final: prev: {
+                      hyprproxlock = prev.callPackage "${self}/pkgs/hyprproxlock.nix" {
+                         hyprlock = prev.hyprlock;
+                         bluez = prev.bluez;
+                      };
+                    })
+                  ];
+                })
             ];
         };
       };
