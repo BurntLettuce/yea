@@ -16,6 +16,8 @@ in {
       "$menu" = menu;
       "$mainMod" = mod;
 
+      layerrule = [ "blur, top" "blur, overlay" ];
+
       # General settings
       general = {
         gaps_in = 5;
@@ -31,7 +33,6 @@ in {
       # Decoration
       decoration = {
         rounding = 10;
-        layerrule = [ "blur, top" "blur, overlay" ];
         active_opacity = 1.0;
         inactive_opacity = 0.85;
         
@@ -98,7 +99,9 @@ in {
         };
       };
 
-      gestures.workspace_swipe = false;
+      gestures = {
+        workspace_swipe = false;
+      };
 
       device = {
         name = "epic-mouse-v1";
