@@ -16,7 +16,10 @@ in {
       "$menu" = menu;
       "$mainMod" = mod;
 
-      layerrule = [ "blur, top" "blur, overlay" ];
+     layerrule = [
+       "blur on, match:namespace ^top$"
+       "blur on, match:namespace ^overlay$"
+     ];
 
       # General settings
       general = {
@@ -99,10 +102,6 @@ in {
         };
       };
 
-      gestures = {
-        workspace_swipe = false;
-      };
-
       device = {
         name = "epic-mouse-v1";
         sensitivity = -0.5;
@@ -180,7 +179,7 @@ in {
       workspace = ["special:gromit, gapsin:0, gapsout:0, on-created-empty: gromit-mpx -a"];
       
       # Window rules
-      windowrulev2 = [
+      windowrule = [
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
         "opacity 0.80 0.85, class:^(.*)$"
@@ -188,10 +187,10 @@ in {
         "opacity 1, class:^(Gromit-mpx)$"
         "noshadow, class:^(Gromit-mpx)$"
         "float, class:^(Gromit-mpx)$"
-  	"pin, class:^(Gromit-mpx)$"
- 	"noinitialfocus, class:^(Gromit-mpx)$"           
-	"noborder, class:^(Gromit-mpx)$" 
-  	"dimaround, 0, class:^(Gromit-mpx)$"      
+        "pin, class:^(Gromit-mpx)$"
+        "noinitialfocus, class:^(Gromit-mpx)$"           
+        "noborder, class:^(Gromit-mpx)$" 
+        "dimaround, 0, class:^(Gromit-mpx)$"      
       ];
 
       # Startup
