@@ -174,16 +174,16 @@
   ];
 
   # Manage the virtualisation services
-virtualisation = {
-  libvirtd = {
-    enable = true;
-    qemu = {
-      swtpm.enable = true;
-      # ovmf has been removed; no need to configure it
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        # ovmf has been removed; no need to configure it
+      };
     };
+    spiceUSBRedirection.enable = true;
   };
-  spiceUSBRedirection.enable = true;
-};
   services.spice-vdagentd.enable = true;
 
   fonts.packages = with pkgs; [
@@ -233,10 +233,9 @@ virtualisation = {
     wg0 = {
      address = [ "10.0.0.2/24" ];
       privateKeyFile = "/home/ghostyyistoasty/wireguard-keys/private";
-     #privateKeyFile = config.sops.secrets."wireguard/private-key".path;
 	peers = [
         {
-          publicKey = "H6MgkDP53l4F6K2WtasnUtwsYGhIueE7tcEhJUXypVM=";
+          publicKey = "zZsml/sFZj3TypTq3fLdb5+23DQPV7ED6e32hb5tXCw=";
           allowedIPs = [ "192.168.1.249/32" ];
           endpoint = "wg.ghostyyistoastyy.com:30912";
           persistentKeepalive = 25;
@@ -246,7 +245,6 @@ virtualisation = {
     wg1 = {
      address = [ "10.8.0.5/24" "fdcc:ad94:bacf:61a4::cafe:5" ];
       privateKeyFile = "/home/ghostyyistoasty/wireguard-keys/private2";
-     #privateKeyFile = config.sops.secrets."wireguard/private-key".path;
         peers = [
         {
           publicKey = "NRMY4vETagf+4E4XwNzY7F7Rvj2mv91OkyjwgX/R+XE=";
