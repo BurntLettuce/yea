@@ -72,6 +72,7 @@ inputs = {
             specialArgs = { inherit inputs; };
             modules = [
               ./hosts/scuffed/configuration.nix
+              inputs.sops-nix.nixosModules.sops
             ];
         };
         chuwi = nixpkgs.lib.nixosSystem {

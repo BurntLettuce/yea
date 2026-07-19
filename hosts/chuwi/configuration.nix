@@ -63,6 +63,8 @@
     };
     atd.enable = true;
     printing.enable = true;
+    gvfs.enable = true;
+    udisks2.enable = true;
   };
  
   services.pulseaudio.enable = false;
@@ -86,6 +88,7 @@
     thunar.enable = true;
     xfconf.enable = true;
     firefox.enable = true;
+    kdeconnect.enable = true;
     
     hyprland = {
       enable = true;
@@ -131,6 +134,7 @@
     font-awesome
     git
     gromit-mpx
+    gnumake
     imagemagick
     kitty
     hashcat
@@ -148,7 +152,7 @@
     pywal
     quickshell
     rofi-screenshot
-    rofi-wayland
+    rofi
     sops
     swaynotificationcenter
     ladybird
@@ -170,17 +174,16 @@
   ];
 
   # Manage the virtualisation services
-  virtualisation = {
-    libvirtd = {
-      enable = true;
-      qemu = {
-        swtpm.enable = true;
-        ovmf.enable = true;
-        ovmf.packages = [ pkgs.OVMFFull.fd ];
-      };
+virtualisation = {
+  libvirtd = {
+    enable = true;
+    qemu = {
+      swtpm.enable = true;
+      # ovmf has been removed; no need to configure it
     };
-    spiceUSBRedirection.enable = true;
   };
+  spiceUSBRedirection.enable = true;
+};
   services.spice-vdagentd.enable = true;
 
   fonts.packages = with pkgs; [

@@ -180,17 +180,17 @@ in {
       
       # Window rules
       windowrule = [
-        "suppressevent maximize, class:.*"
-        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-        "opacity 0.80 0.85, class:^(.*)$"
-        "noblur, class:^(Gromit-mpx)$"
-        "opacity 1, class:^(Gromit-mpx)$"
-        "noshadow, class:^(Gromit-mpx)$"
-        "float, class:^(Gromit-mpx)$"
-        "pin, class:^(Gromit-mpx)$"
-        "noinitialfocus, class:^(Gromit-mpx)$"           
-        "noborder, class:^(Gromit-mpx)$" 
-        "dimaround, 0, class:^(Gromit-mpx)$"      
+        "suppress_event maximize, match:class .*"
+        "no_focus on, match:class ^$, match:title ^$, match:xwayland true, match:floating true, match:fullscreen false, match:pinned false"
+        "opacity 0.80 0.85, match:class ^(.*)$"
+        "no_blur on, match:class ^(Gromit-mpx)$"
+        "opacity 1, match:class ^(Gromit-mpx)$"
+        "no_shadow on, match:class ^(Gromit-mpx)$"
+        "float on, match:class ^(Gromit-mpx)$"
+        "pin on, match:class ^(Gromit-mpx)$"
+        "no_initial_focus on, match:class ^(Gromit-mpx)$"
+        "no_border on, match:class ^(Gromit-mpx)$"
+        "dim_around off, match:class ^(Gromit-mpx)$"
       ];
 
       # Startup

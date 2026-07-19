@@ -123,6 +123,7 @@
     jellyfin-web
     jellyfin-ffmpeg
     kitty
+    git
     
     navidrome
     pciutils
