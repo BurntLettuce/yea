@@ -13,7 +13,6 @@ sudo nixos-rebuild switch --flake .#<hostname>
 hosts/common/secrets/secrets.yaml
 ```
 Recipients are defined in:
-```
 hosts/common/.sops.yaml
 ```
 
