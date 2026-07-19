@@ -59,7 +59,45 @@
   sops.secrets."myservice/my_subdir/my_secret" = {
       owner = "ghostyytoastyy";
   };
+  sops.secrets."cloudflare/api-token" = { owner = "root"; };
+  sops.secrets."cloudflare/zone-id" = { owner = "root"; };
+  sops.secrets."cloudflare/record-name" = { owner = "root"; };
+  
+  systemd.services.cloudflare-ddns = {
+    description = "Update Cloudflare DNS record with current public IP";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig.Type = "oneshot";
+    path = [ pkgs.curl pkgs.jq ];
+    script = ''
+      set -euo pipefail
 
+      TOKEN=$(cat ${config.sops.secrets."cloudflare/api-token".path})
+      ZONE_ID=$(cat ${config.sops.secrets."cloudflare/zone-id".path})
+      RECORD_NAME=$(cat ${config.sops.secrets."cloudflare/record-name".path})
+
+      CURRENT_IP=$(curl -s https://api.ipify.org)
+
+      RECORD_ID=$(curl -s -X GET \
+        "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=A&name=$RECORD_NAME" \
+        -H "Authorization: Bearer $TOKEN" \
+        -H "Content-Type: application/json" | jq -r '.result[0].id')
+
+      curl -s -X PUT \
+        "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID" \
+        -H "Authorization: Bearer $TOKEN" \
+        -H "Content-Type: application/json" \
+        --data "{\"type\":\"A\",\"name\":\"$RECORD_NAME\",\"content\":\"$CURRENT_IP\",\"ttl\":120,\"proxied\":false}"
+    '';
+  };
+
+  systemd.timers.cloudflare-ddns = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "1m";
+      OnUnitActiveSec = "5m";
+    };
+  }; 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

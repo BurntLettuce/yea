@@ -235,7 +235,7 @@
         {
           publicKey = "H6MgkDP53l4F6K2WtasnUtwsYGhIueE7tcEhJUXypVM=";
           allowedIPs = [ "192.168.1.249/32" ];
-          endpoint = "71.245.162.7:30912";
+          endpoint = "wg.ghostyyistoastyy.com";
           persistentKeepalive = 25;
         }
       ];
@@ -249,7 +249,7 @@
           publicKey = "NRMY4vETagf+4E4XwNzY7F7Rvj2mv91OkyjwgX/R+XE=";
           presharedKeyFile = "/home/ghostyyistoasty/wireguard-keys/presharedkey";          
           allowedIPs = [ "192.168.1.211/32" "::ffff:c0a8:1d3/32"];
-          endpoint = "71.245.162.7:51820";
+          endpoint = "wg.ghostyyistoastyy.com:51820";
           persistentKeepalive = 25;
         }
       ];  
