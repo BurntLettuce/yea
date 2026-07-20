@@ -177,27 +177,47 @@ in {
       ];
 
       workspace = ["special:gromit, gapsin:0, gapsout:0, on-created-empty: gromit-mpx -a"];
-      
-      # Window rules
-      windowrule = [
-        "suppress_event maximize, match:class .*"
-        "no_focus on, match:class ^$, match:title ^$, match:xwayland true, match:floating true, match:fullscreen false, match:pinned false"
-        "opacity 0.80 0.85, match:class ^(.*)$"
-        "no_blur on, match:class ^(Gromit-mpx)$"
-        "opacity 1, match:class ^(Gromit-mpx)$"
-        "no_shadow on, match:class ^(Gromit-mpx)$"
-        "float on, match:class ^(Gromit-mpx)$"
-        "pin on, match:class ^(Gromit-mpx)$"
-        "no_initial_focus on, match:class ^(Gromit-mpx)$"
-        "no_border on, match:class ^(Gromit-mpx)$"
-        "dim_around off, match:class ^(Gromit-mpx)$"
-      ];
 
       # Startup
       exec-once = [
         "${config.home.homeDirectory}/.config/hypr/start.sh"
       ];
     };
+
+extraConfig = ''
+  windowrule {
+    name = suppress-maximize-events
+    match:class = .*
+    suppress_event = maximize
+  }
+  windowrule {
+    name = hide-empty-floating
+    match:class = ^$
+    match:title = ^$
+    match:xwayland = true
+    match:float = true
+    match:fullscreen = false
+    match:pin = false
+    no_focus = true
+  }
+  windowrule {
+    name = default-opacity
+    match:class = ^(.*)$
+    opacity = 0.80 0.85
+  }
+  windowrule {
+    name = gromit-mpx
+    match:class = ^(Gromit-mpx)$
+    no_blur = true
+    opacity = 1
+    no_shadow = true
+    float = true
+    pin = true
+    no_initial_focus = true
+    border_size = 0
+    dim_around = false
+  }
+'';
   };
 
   # Hypridle (Idle Management)
