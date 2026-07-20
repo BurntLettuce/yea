@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    rofi-wayland
+    rofi
   ];
 
   # Main rofi config (~/.config/rofi/config.rasi)
