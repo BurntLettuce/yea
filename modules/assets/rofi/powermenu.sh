@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dir="~/.config/rofi/powermenu"
+dir="$HOME/.config/rofi/powermenu"
 theme='style-1'
 
 # CMDs
