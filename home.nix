@@ -18,6 +18,7 @@
     ./modules/hypr.nix
     ./modules/waybar.nix
     ./modules/vm.nix
+    ./modules/rofi.nix
   ];
 
   home.file.".config/hypr/hyprproxlock.conf".text = ''
