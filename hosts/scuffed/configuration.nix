@@ -219,6 +219,7 @@
 
   users.users.ghostyytoastyy.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHF/RJRc+8fRilYNBUVBQzg6hfpW0T8TK5/zh9PFkhEP ghostyyistoasty@nixos"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICMHzHOi6Dej74WRWMqwvUlaWVbgW30fjJtO6rDZul9A polytzu@gmail.com"
   ];
 
   nix.settings.trusted-users = [ "ghostyyistoasty" "@wheel" ];
