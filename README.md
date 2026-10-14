@@ -2,7 +2,7 @@
 
 ## Hosts
 
-Rebuild any host with:
+Rebuild with:
 ```bash
 cd /etc/nixos
 sudo nixos-rebuild switch --flake .#<hostname>
@@ -18,10 +18,9 @@ hosts/common/.sops.yaml
 
 ### Editing secrets
 
-**Never edit `secrets.yaml` directly.** Always go through sops so it stays encrypted on disk:
+**Never edit `secrets.yaml`.** Always go through sops so its encrypted:
 ```bash
-cd /etc/nixos/hosts/common
-sops secrets/secrets.yaml
+sops secrets.yaml
 ```
 
 ### Adding new device
@@ -31,8 +30,8 @@ sops secrets/secrets.yaml
    nix-shell -p ssh-to-age --run "ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub"
    ```
    (Generate the host key first if missing: `sudo ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""`)
-2. Add new key + a label to `hosts/common/.sops.yaml` under `keys:` and `key_groups:`.
-3. From any machine that can decrypt the file, run:
+2. Add new key + label to `hosts/common/.sops.yaml` under `keys:` and `key_groups:`.
+3. Run:
    ```bash
    cd /etc/nixos/hosts/common
    sops updatekeys secrets/secrets.yaml
