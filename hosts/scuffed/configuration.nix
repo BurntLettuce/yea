@@ -14,7 +14,7 @@
     internalInterfaces = [ "wg0" ];
   };
   networking.firewall = {
-    allowedTCPPorts = [ 53  4533  8080];
+    allowedTCPPorts = [ 53  4533  8080  22000];
     allowedUDPPorts = [ 53  30912 ];
   };
 
@@ -42,9 +42,64 @@
           publicKey = "gMwdY3UEHGsMidURtSpEFt4HSsufmrpGBZJbDClijX0=";
           allowedIPs = [ "10.0.0.3/32" ];
         }
+        {
+          publicKey = "sOhOhqq0BIJJh4i78uL6QLkyCEC2H9NfbJhmj5iCPkY=";
+          allowedIPs = [ "10.0.0.4/32" ];
+        }
       ];
     };
   };
+
+services.syncthing = {
+  enable = true;
+  openDefaultPorts = false;
+  guiAddress = "127.0.0.1:8384";
+  overrideDevices = true;
+  overrideFolders = true;
+  settings = {
+    options = {
+      listenAddresses = [ "tcp://0.0.0.0:22000" ];
+      globalAnnounceEnabled = false;
+      localAnnounceEnabled = false;
+      relaysEnabled = false;
+      natEnabled = false;
+      urAccepted = -1;
+    };
+    devices.phone = {
+      id = "SOOKI3K-MCRORCX-YAAA4XU-D2WYXJM-J6MMKK2-5XVKP54-VXK7N6H-JVSPQQW";
+      addresses = [ "dynamic" ];
+    };
+    folders = {
+     music-soulseek = {
+       id = "dlgq9-1b514";
+       label = "music-soulseek";
+       path = "/srv/music/soulseek";
+        devices = [ "phone" ];
+        type = "receiveonly";
+        versioning = { type = "trashcan"; params.cleanoutDays = "30"; };
+      };
+      music-downloads = {
+        id = "ehnhq-5pfar";
+        label = "music-downloads";
+        path = "/srv/music/downloads";
+        devices = [ "phone" ];
+        type = "receiveonly";
+        versioning = { type = "trashcan"; params.cleanoutDays = "30"; };
+      };
+    };
+  };
+};
+
+  systemd.tmpfiles.rules = [
+    "d /srv/music           0750 syncthing syncthing -"
+    "d /srv/music/soulseek  0750 syncthing syncthing -"
+    "d /srv/music/downloads 0750 syncthing syncthing -"
+  ];
+  systemd.services.navidrome.environment.TMPDIR = "/var/lib/navidrome";
+  users.users.navidrome.extraGroups = [ "syncthing" ];
+
+  networking.firewall.interfaces.eth0.allowedTCPPorts = [ 22000 ];
+  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 22000 ];
 
   sops.defaultSopsFile = ../common/secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
@@ -179,7 +234,7 @@
     navidrome = {
       enable = true;
       settings = {
-        MusicFolder = "/var/lib/navidrome/music";
+        MusicFolder = "/srv/music";
         Address = "0.0.0.0";
         Port = 4533;
         LastFM.Enabled = false;  
