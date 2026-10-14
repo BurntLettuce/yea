@@ -64,15 +64,16 @@
   dconf.enable = true;
  
   gtk = {
-     enable = true;
-     theme = {
-       name = "Dracula";
-       package = pkgs.dracula-theme;
-     };
-     cursorTheme = {
-       name = "Bibata-Modern-Ice";
-       package = pkgs.bibata-cursors;
-     };
+    enable = true;
+    theme = {
+      name = "Dracula";
+      package = pkgs.dracula-theme;
+    };
+    cursorTheme = {
+      name = "Bibata-Modern-Ice";
+      package = pkgs.bibata-cursors;
+    };
+    gtk4.theme = config.gtk.theme;
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
-
 }

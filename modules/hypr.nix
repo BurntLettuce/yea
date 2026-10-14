@@ -7,6 +7,7 @@ let
 in {
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     settings = {
       monitor = "DSI-1,1200x1920@60,auto,1,transform,3";
 

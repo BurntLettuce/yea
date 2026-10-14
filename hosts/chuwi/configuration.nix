@@ -93,8 +93,8 @@
     hyprland = {
       enable = true;
       xwayland.enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-      portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
 
     wireshark = {
@@ -120,9 +120,9 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    inputs.swww.packages.${pkgs.system}.swww
-    inputs.tpanel.packages.${system}.default
-    inputs.sddm-stray.packages.${pkgs.system}.default
+    inputs.swww.packages.${pkgs.stdenv.hostPlatform.system}.swww
+    inputs.tpanel.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.sddm-stray.packages.${pkgs.stdenv.hostPlatform.system}.default
     age
     angryoxide
     brightnessctl
@@ -232,7 +232,7 @@
   networking.wg-quick.interfaces = {
     wg0 = {
      address = [ "10.0.0.2/24" ];
-      privateKeyFile = "/home/ghostyyistoasty/wireguard-keys/private";
+      privateKeyFile = "/etc/wireguard/private";
 	peers = [
         {
           publicKey = "zZsml/sFZj3TypTq3fLdb5+23DQPV7ED6e32hb5tXCw=";
@@ -244,11 +244,11 @@
     };
     wg1 = {
      address = [ "10.8.0.5/24" "fdcc:ad94:bacf:61a4::cafe:5" ];
-      privateKeyFile = "/home/ghostyyistoasty/wireguard-keys/private2";
+      privateKeyFile = "/etc/wireguard/private2";
         peers = [
         {
           publicKey = "NRMY4vETagf+4E4XwNzY7F7Rvj2mv91OkyjwgX/R+XE=";
-          presharedKeyFile = "/home/ghostyyistoasty/wireguard-keys/presharedkey";          
+          presharedKeyFile = "/etc/wireguard/presharedkey";          
           allowedIPs = [ "192.168.1.211/32" "::ffff:c0a8:1d3/32"];
           endpoint = "wg.ghostyyistoastyy.com:51820";
           persistentKeepalive = 25;

@@ -229,7 +229,7 @@
   networking.wg-quick.interfaces = {
     wg0 = {
      address = [ "10.0.0.2/24" ];
-      privateKeyFile = "/home/ghostyyistoasty/wireguard-keys/private";
+      privateKeyFile = "/etc/wireguard/private";
      #privateKeyFile = config.sops.secrets."wireguard/private-key".path;
 	peers = [
         {
@@ -242,12 +242,12 @@
     };
     wg1 = {
      address = [ "10.8.0.5/24" "fdcc:ad94:bacf:61a4::cafe:5" ];
-      privateKeyFile = "/home/ghostyyistoasty/wireguard-keys/private2";
+      privateKeyFile = "/etc/wireguard/private2";
      #privateKeyFile = config.sops.secrets."wireguard/private-key".path;
         peers = [
         {
           publicKey = "NRMY4vETagf+4E4XwNzY7F7Rvj2mv91OkyjwgX/R+XE=";
-          presharedKeyFile = "/home/ghostyyistoasty/wireguard-keys/presharedkey";          
+          presharedKeyFile = "/etc/wireguard/presharedkey";          
           allowedIPs = [ "192.168.1.211/32" "::ffff:c0a8:1d3/32"];
           endpoint = "wg.ghostyyistoastyy.com:51820";
           persistentKeepalive = 25;
